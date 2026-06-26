@@ -1,0 +1,20 @@
+-- supabase/seed.sql
+INSERT INTO categories (name, type, icon, is_default) VALUES
+  ('Alimentação',      'expense',    'utensils',    TRUE),
+  ('Transporte',       'expense',    'car',         TRUE),
+  ('Moradia',          'expense',    'home',        TRUE),
+  ('Saúde',            'expense',    'heart',       TRUE),
+  ('Educação',         'expense',    'book',        TRUE),
+  ('Lazer',            'expense',    'gamepad-2',   TRUE),
+  ('Vestuário',        'expense',    'shirt',       TRUE),
+  ('Outros',           'expense',    'circle',      TRUE),
+  ('Salário',          'income',     'briefcase',   TRUE),
+  ('Freelance',        'income',     'laptop',      TRUE),
+  ('Aluguel Recebido', 'income',     'building',    TRUE),
+  ('Outros',           'income',     'circle',      TRUE),
+  ('Renda Fixa',       'investment', 'trending-up', TRUE),
+  ('Ações',            'investment', 'bar-chart-2', TRUE),
+  ('FIIs',             'investment', 'landmark',    TRUE),
+  ('Criptomoedas',     'investment', 'bitcoin',     TRUE),
+  ('Poupança',         'investment', 'piggy-bank',  TRUE),
+  ('Outros',           'investment', 'circle',      TRUE);
