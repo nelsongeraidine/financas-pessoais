@@ -100,8 +100,11 @@ Controla quem pode visualizar as transações de quem. Gerenciado exclusivamente
 
 **Política de leitura (`SELECT`):**
 ```sql
--- O usuário vê suas próprias transações OU transações de membros
--- para os quais ele tem permissão explícita concedida pelo admin.
+-- Admin vê todas as transações.
+-- Membro vê suas próprias transações OU transações de membros
+-- para os quais tem permissão explícita concedida pelo admin.
+EXISTS (SELECT 1 FROM profiles WHERE id = auth.uid() AND role = 'admin')
+OR
 (user_id = auth.uid())
 OR
 EXISTS (
