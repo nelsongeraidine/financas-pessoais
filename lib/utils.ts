@@ -14,10 +14,10 @@ export function getCurrentMonthRange(): { start: string; end: string } {
   const now = new Date()
   const year = now.getFullYear()
   const month = now.getMonth()
-  const start = new Date(year, month, 1)
-  const end = new Date(year, month + 1, 0)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  const lastDay = new Date(year, month + 1, 0).getDate()
   return {
-    start: start.toISOString().split('T')[0],
-    end: end.toISOString().split('T')[0],
+    start: `${year}-${pad(month + 1)}-01`,
+    end: `${year}-${pad(month + 1)}-${pad(lastDay)}`,
   }
 }

@@ -79,7 +79,14 @@ CREATE POLICY "usuarios autenticados leem todos os perfis"
   ON profiles FOR SELECT TO authenticated USING (true);
 
 CREATE POLICY "usuario edita proprio perfil"
-  ON profiles FOR UPDATE TO authenticated USING (id = auth.uid());
+  ON profiles FOR UPDATE TO authenticated
+  USING (id = auth.uid())
+  WITH CHECK (id = auth.uid() AND role = (SELECT role FROM profiles WHERE id = auth.uid()));
+
+-- NOTE: If the initial migration was already applied, run the following in Supabase SQL Editor:
+-- DROP POLICY "usuario edita proprio perfil" ON profiles;
+-- CREATE POLICY "usuario edita proprio perfil" ON profiles FOR UPDATE TO authenticated
+--   USING (id = auth.uid()) WITH CHECK (id = auth.uid() AND role = (SELECT role FROM profiles WHERE id = auth.uid()));
 
 -- categories
 CREATE POLICY "usuarios autenticados leem categorias"

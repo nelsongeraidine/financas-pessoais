@@ -14,7 +14,7 @@ export default async function TransactionsPage({
 
   let query = supabase
     .from('transactions')
-    .select('*, category:categories(id, name, type, icon)')
+    .select('*, category:categories(id, name, type, icon), profile:profiles!user_id(id, name)')
     .order('date', { ascending: false })
 
   if (searchParams.type && ['expense', 'income', 'investment'].includes(searchParams.type)) {

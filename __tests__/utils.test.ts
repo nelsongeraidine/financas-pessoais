@@ -20,12 +20,13 @@ describe('formatDate', () => {
 })
 
 describe('getCurrentMonthRange', () => {
-  it('retorna primeiro e último dia do mês atual', () => {
+  it('retorna primeiro e último dia do mês atual no formato YYYY-MM-DD', () => {
     const { start, end } = getCurrentMonthRange()
     const now = new Date()
     const year = now.getFullYear()
     const month = String(now.getMonth() + 1).padStart(2, '0')
+    const lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate()
     expect(start).toBe(`${year}-${month}-01`)
-    expect(new Date(end).getMonth()).toBe(now.getMonth())
+    expect(end).toBe(`${year}-${month}-${String(lastDay).padStart(2, '0')}`)
   })
 })
