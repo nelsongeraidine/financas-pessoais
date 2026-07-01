@@ -62,7 +62,7 @@ export default function Sidebar({ profile }: SidebarProps) {
         style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/NGG-logo2.PNG" alt="NGG" style={{ width: 120, objectFit: 'contain' }} />
+        <img src="/logo.png" alt="NGG" style={{ width: 120, objectFit: 'contain' }} />
       </div>
 
       <nav className="flex-1 p-3 space-y-0.5">

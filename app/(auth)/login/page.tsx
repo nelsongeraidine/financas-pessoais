@@ -44,7 +44,7 @@ export default function LoginPage() {
       >
         <div className="flex justify-center mb-6">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/NGG-logo2.PNG" alt="NGG" style={{ width: 140, objectFit: 'contain' }} />
+          <img src="/logo.png" alt="NGG" style={{ width: 140, objectFit: 'contain' }} />
         </div>
         <h1 className="text-xl font-semibold text-starlight mb-1 text-center">
           Bem-vindo de volta

@@ -140,13 +140,16 @@ Font: **Hanken Grotesk** via `next/font/google`, CSS variable `--font-hanken`, a
 
 ### Logo
 
-`public/NGG-logo2.PNG` — served via `next/image` in `Sidebar.tsx` (width 120) and `app/(auth)/login/page.tsx` (width 140).
+`public/logo.png` — served via a plain `<img>` tag in `Sidebar.tsx` (width 120) and `app/(auth)/login/page.tsx` (width 140).
 
-**Always use `unoptimized` prop** on both Image components. The file is ~2MB and the Next.js image optimization API fails on Vercel's free plan for large assets:
+**Use a plain `<img>` tag, not `next/image`.** The ~2MB file breaks the Next.js image optimization API on Vercel's free plan, so it's served as a raw static asset from `public/`:
 
 ```tsx
-<Image src="/NGG-logo2.PNG" alt="NGG" width={140} height={70} priority unoptimized />
+{/* eslint-disable-next-line @next/next/no-img-element */}
+<img src="/logo.png" alt="NGG" style={{ width: 140, objectFit: 'contain' }} />
 ```
+
+**Filename must stay all-lowercase (`logo.png`).** The previous name `NGG-logo2.PNG` used an uppercase `.PNG` extension; Vercel's Linux build is case-sensitive and the asset 404'd there (it worked locally on case-insensitive Windows). Keep static-asset paths lowercase to avoid this class of bug.
 
 ### Icons
 
