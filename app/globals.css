@@ -5,6 +5,7 @@
 :root {
   --background: #080816;
   --foreground: #e2e2e2;
+  --glass-border: rgba(255,255,255,0.1);
 }
 
 body {
