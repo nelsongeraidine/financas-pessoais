@@ -50,6 +50,7 @@ export default function LoginPage() {
             height={70}
             style={{ objectFit: 'contain' }}
             priority
+            unoptimized
           />
         </div>
         <h1 className="text-xl font-semibold text-starlight mb-1 text-center">

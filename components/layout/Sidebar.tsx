@@ -68,6 +68,7 @@ export default function Sidebar({ profile }: SidebarProps) {
           height={60}
           style={{ objectFit: 'contain' }}
           priority
+          unoptimized
         />
       </div>
 
