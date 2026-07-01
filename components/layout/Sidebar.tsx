@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
+
 import { usePathname, useRouter } from 'next/navigation'
 import {
   LayoutDashboard,
@@ -61,15 +61,8 @@ export default function Sidebar({ profile }: SidebarProps) {
         className="flex justify-center items-center px-5 py-5"
         style={{ borderBottom: '1px solid rgba(255,255,255,0.07)' }}
       >
-        <Image
-          src="/NGG-logo2.PNG"
-          alt="NGG"
-          width={120}
-          height={60}
-          style={{ objectFit: 'contain' }}
-          priority
-          unoptimized
-        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/NGG-logo2.PNG" alt="NGG" style={{ width: 120, objectFit: 'contain' }} />
       </div>
 
       <nav className="flex-1 p-3 space-y-0.5">

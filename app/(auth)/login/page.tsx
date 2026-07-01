@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
+
 import { createClient } from '@/lib/supabase/client'
 
 export default function LoginPage() {
@@ -43,15 +43,8 @@ export default function LoginPage() {
         style={{ background: '#121224', border: '1px solid rgba(255,255,255,0.08)' }}
       >
         <div className="flex justify-center mb-6">
-          <Image
-            src="/NGG-logo2.PNG"
-            alt="NGG"
-            width={140}
-            height={70}
-            style={{ objectFit: 'contain' }}
-            priority
-            unoptimized
-          />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/NGG-logo2.PNG" alt="NGG" style={{ width: 140, objectFit: 'contain' }} />
         </div>
         <h1 className="text-xl font-semibold text-starlight mb-1 text-center">
           Bem-vindo de volta
