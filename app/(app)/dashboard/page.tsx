@@ -52,8 +52,8 @@ export default async function DashboardPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-        <p className="text-sm text-gray-500">
+        <h1 className="text-2xl font-bold text-starlight">Dashboard</h1>
+        <p className="text-sm text-[#8d90a1]">
           {new Date().toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })}
         </p>
       </div>
