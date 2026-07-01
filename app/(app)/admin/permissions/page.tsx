@@ -14,8 +14,8 @@ export default async function AdminPermissionsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-2">Permissões</h1>
-      <p className="text-gray-500 text-sm mb-6">
+      <h1 className="text-2xl font-bold text-starlight mb-2">Permissões</h1>
+      <p className="text-[#8d90a1] text-sm mb-6">
         Ative o toggle para permitir que um membro visualize as transações de outro.
       </p>
       <PermissionsMatrix

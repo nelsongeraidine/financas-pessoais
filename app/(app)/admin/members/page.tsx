@@ -14,7 +14,7 @@ export default async function AdminMembersPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-gray-900 mb-6">Membros</h1>
+      <h1 className="text-2xl font-bold text-starlight mb-6">Membros</h1>
       <MembersList members={members ?? []} currentUserId={user.id} />
     </div>
   )

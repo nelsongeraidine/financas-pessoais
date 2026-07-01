@@ -1,4 +1,3 @@
-// components/admin/PermissionsMatrix.tsx
 'use client'
 
 import { useState } from 'react'
@@ -27,7 +26,6 @@ export default function PermissionsMatrix({
   async function toggle(viewerId: string, targetId: string) {
     const key = permissionKey(viewerId, targetId)
     const grant = !granted.has(key)
-
     setLoading((prev) => new Set(prev).add(key))
 
     const response = await fetch('/api/admin/permissions', {
@@ -58,22 +56,30 @@ export default function PermissionsMatrix({
 
   if (nonAdminMembers.length < 2) {
     return (
-      <p className="text-gray-500 text-sm py-8 text-center">
+      <p className="text-[#8d90a1] text-sm py-8 text-center">
         São necessários pelo menos 2 membros (além do admin) para configurar permissões.
       </p>
     )
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-auto">
+    <div
+      className="rounded-xl overflow-auto"
+      style={{ background: '#121224', border: '1px solid rgba(255,255,255,0.07)' }}
+    >
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-gray-200 bg-gray-50">
-            <th className="text-left px-4 py-3 font-medium text-gray-600 min-w-[140px]">
+          <tr
+            style={{
+              borderBottom: '1px solid rgba(255,255,255,0.07)',
+              background: 'rgba(255,255,255,0.02)',
+            }}
+          >
+            <th className="text-left px-4 py-3 font-medium text-[#8d90a1] min-w-[140px]">
               Quem visualiza ↓ / De quem →
             </th>
             {nonAdminMembers.map((target) => (
-              <th key={target.id} className="px-4 py-3 font-medium text-gray-600 text-center">
+              <th key={target.id} className="px-4 py-3 font-medium text-[#8d90a1] text-center">
                 {target.name}
               </th>
             ))}
@@ -81,13 +87,13 @@ export default function PermissionsMatrix({
         </thead>
         <tbody>
           {nonAdminMembers.map((viewer) => (
-            <tr key={viewer.id} className="border-b border-gray-100 last:border-0">
-              <td className="px-4 py-3 text-gray-700 font-medium">{viewer.name}</td>
+            <tr key={viewer.id} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
+              <td className="px-4 py-3 text-[#e2e2e2] font-medium">{viewer.name}</td>
               {nonAdminMembers.map((target) => {
                 if (viewer.id === target.id) {
                   return (
                     <td key={target.id} className="px-4 py-3 text-center">
-                      <span className="text-gray-300 text-xs">—</span>
+                      <span className="text-[#434655] text-xs">—</span>
                     </td>
                   )
                 }
@@ -99,15 +105,13 @@ export default function PermissionsMatrix({
                     <button
                       onClick={() => toggle(viewer.id, target.id)}
                       disabled={isLoading}
-                      className={`w-10 h-6 rounded-full transition-colors relative disabled:opacity-50 ${
-                        isGranted ? 'bg-blue-600' : 'bg-gray-200'
-                      }`}
+                      className="w-10 h-6 rounded-full transition-all relative disabled:opacity-50"
+                      style={{ background: isGranted ? '#3264FF' : '#434655' }}
                       title={isGranted ? 'Remover permissão' : 'Conceder permissão'}
                     >
                       <span
-                        className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-transform ${
-                          isGranted ? 'left-5' : 'left-1'
-                        }`}
+                        className="absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all"
+                        style={{ left: isGranted ? '1.25rem' : '0.25rem' }}
                       />
                     </button>
                   </td>
