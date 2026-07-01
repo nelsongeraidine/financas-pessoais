@@ -1,4 +1,3 @@
-// components/transactions/TransactionForm.tsx
 'use client'
 
 import { useState } from 'react'
@@ -21,10 +20,20 @@ const typeLabels: Record<TransactionType, string> = {
   investment: 'Investimento',
 }
 
+const typeActiveStyles: Record<TransactionType, string> = {
+  expense: 'bg-[rgba(255,180,171,0.15)] border-[#ffb4ab] text-[#ffb4ab]',
+  income: 'bg-[rgba(74,222,128,0.15)] border-[#4ade80] text-[#4ade80]',
+  investment: 'bg-[rgba(183,196,255,0.15)] border-[#b7c4ff] text-[#b7c4ff]',
+}
+
+const inputCls =
+  'w-full rounded-lg px-3 py-2.5 text-sm text-[#e2e2e2] placeholder-[#434655] focus:outline-none focus:ring-1 focus:ring-[#3264FF] transition-colors'
+const inputSty = { background: '#1e2020', border: '1px solid rgba(255,255,255,0.1)' }
+const labelCls = 'block text-sm font-medium text-[#c3c5d8] mb-1.5'
+
 export default function TransactionForm({ categories }: TransactionFormProps) {
   const router = useRouter()
   const [serverError, setServerError] = useState<string | null>(null)
-
   const today = new Date().toISOString().split('T')[0]
 
   const {
@@ -47,31 +56,29 @@ export default function TransactionForm({ categories }: TransactionFormProps) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     })
-
     if (!response.ok) {
       setServerError('Erro ao salvar. Tente novamente.')
       return
     }
-
     router.push('/transactions')
     router.refresh()
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 max-w-lg">
-      {/* Tipo */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">Tipo</label>
+        <label className={labelCls}>Tipo</label>
         <div className="flex gap-2">
           {(['expense', 'income', 'investment'] as TransactionType[]).map((t) => (
             <label key={t} className="flex-1">
               <input type="radio" value={t} {...register('type')} className="sr-only" />
               <span
-                className={`block text-center py-2 px-3 rounded-lg text-sm border cursor-pointer transition-colors ${
+                className={`block text-center py-2 px-3 rounded-lg text-sm border cursor-pointer transition-all ${
                   selectedType === t
-                    ? 'bg-blue-600 text-white border-blue-600'
-                    : 'border-gray-300 text-gray-600 hover:bg-gray-50'
+                    ? typeActiveStyles[t]
+                    : 'border-[rgba(255,255,255,0.1)] text-[#8d90a1] hover:border-[rgba(255,255,255,0.2)]'
                 }`}
+                style={selectedType !== t ? { background: '#1e2020' } : {}}
               >
                 {typeLabels[t]}
               </span>
@@ -80,87 +87,69 @@ export default function TransactionForm({ categories }: TransactionFormProps) {
         </div>
       </div>
 
-      {/* Valor */}
       <div>
-        <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
-          Valor (R$)
-        </label>
+        <label htmlFor="amount" className={labelCls}>Valor (R$)</label>
         <input
           id="amount"
           type="number"
           step="0.01"
           min="0.01"
           {...register('amount')}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={inputCls}
+          style={inputSty}
           placeholder="0,00"
         />
-        {errors.amount && <p className="text-red-600 text-xs mt-1">{errors.amount.message}</p>}
+        {errors.amount && <p className="text-[#ffb4ab] text-xs mt-1">{errors.amount.message}</p>}
       </div>
 
-      {/* Categoria */}
       <div>
-        <label htmlFor="category_id" className="block text-sm font-medium text-gray-700 mb-1">
-          Categoria
-        </label>
-        <select
-          id="category_id"
-          {...register('category_id')}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
-        >
+        <label htmlFor="category_id" className={labelCls}>Categoria</label>
+        <select id="category_id" {...register('category_id')} className={inputCls} style={inputSty}>
           <option value="">Selecione uma categoria</option>
           {filteredCategories.map((cat) => (
-            <option key={cat.id} value={cat.id}>
-              {cat.name}
-            </option>
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
           ))}
         </select>
         {errors.category_id && (
-          <p className="text-red-600 text-xs mt-1">{errors.category_id.message}</p>
+          <p className="text-[#ffb4ab] text-xs mt-1">{errors.category_id.message}</p>
         )}
       </div>
 
-      {/* Data */}
       <div>
-        <label htmlFor="date" className="block text-sm font-medium text-gray-700 mb-1">
-          Data
-        </label>
-        <input
-          id="date"
-          type="date"
-          {...register('date')}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        {errors.date && <p className="text-red-600 text-xs mt-1">{errors.date.message}</p>}
+        <label htmlFor="date" className={labelCls}>Data</label>
+        <input id="date" type="date" {...register('date')} className={inputCls} style={inputSty} />
+        {errors.date && <p className="text-[#ffb4ab] text-xs mt-1">{errors.date.message}</p>}
       </div>
 
-      {/* Descrição */}
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-          Descrição <span className="text-gray-400">(opcional)</span>
+        <label htmlFor="description" className={labelCls}>
+          Descrição <span className="text-[#434655] font-normal">(opcional)</span>
         </label>
         <input
           id="description"
           type="text"
           {...register('description')}
-          className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={inputCls}
+          style={inputSty}
           placeholder="Ex: Supermercado Extra"
         />
       </div>
 
-      {serverError && <p className="text-red-600 text-sm">{serverError}</p>}
+      {serverError && <p className="text-[#ffb4ab] text-sm">{serverError}</p>}
 
       <div className="flex gap-3 pt-2">
         <button
           type="button"
           onClick={() => router.back()}
-          className="flex-1 border border-gray-300 text-gray-700 py-2 rounded-lg text-sm hover:bg-gray-50 transition-colors"
+          className="flex-1 py-2.5 rounded-lg text-sm text-[#3264FF] hover:bg-[rgba(50,100,255,0.08)] transition-all"
+          style={{ border: '1px solid #3264FF' }}
         >
           Cancelar
         </button>
         <button
           type="submit"
           disabled={isSubmitting}
-          className="flex-1 bg-blue-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-blue-700 disabled:opacity-50 transition-colors"
+          className="flex-1 bg-electric-blue text-white py-2.5 rounded-lg text-sm font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(50,100,255,0.3)] disabled:opacity-50 transition-all"
         >
           {isSubmitting ? 'Salvando...' : 'Salvar'}
         </button>

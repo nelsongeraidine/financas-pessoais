@@ -25,24 +25,28 @@ export default async function TransactionsPage({
 
   const { data: transactions } = await query
 
+  const selectClass =
+    'rounded-lg px-3 py-2 text-sm text-[#e2e2e2] focus:outline-none focus:ring-1 focus:ring-[#3264FF] transition-colors'
+  const selectStyle = { background: '#1e2020', border: '1px solid rgba(255,255,255,0.1)' }
+
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Lançamentos</h1>
+        <h1 className="text-2xl font-bold text-starlight">Lançamentos</h1>
         <Link
           href="/transactions/new"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+          className="bg-electric-blue text-white px-4 py-2 rounded-lg text-sm font-medium hover:brightness-110 hover:shadow-[0_0_20px_rgba(50,100,255,0.3)] transition-all"
         >
           + Nova Transação
         </Link>
       </div>
 
-      {/* Filtros */}
       <form method="GET" className="flex flex-wrap gap-3">
         <select
           name="type"
           defaultValue={searchParams.type ?? ''}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={selectClass}
+          style={selectStyle}
         >
           <option value="">Todos os tipos</option>
           <option value="expense">Despesas</option>
@@ -53,23 +57,22 @@ export default async function TransactionsPage({
           type="date"
           name="start"
           defaultValue={searchParams.start ?? ''}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={selectClass}
+          style={selectStyle}
         />
         <input
           type="date"
           name="end"
           defaultValue={searchParams.end ?? ''}
-          className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className={selectClass}
+          style={selectStyle}
         />
-        <button
-          type="submit"
-          className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg text-sm hover:bg-gray-200 transition-colors"
-        >
+        <button type="submit" className={selectClass} style={selectStyle}>
           Filtrar
         </button>
         <Link
           href="/transactions"
-          className="text-gray-500 text-sm py-2 hover:text-gray-700"
+          className="text-[#8d90a1] text-sm py-2 hover:text-[#e2e2e2] transition-colors"
         >
           Limpar
         </Link>
