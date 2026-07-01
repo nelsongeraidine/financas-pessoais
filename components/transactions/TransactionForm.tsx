@@ -10,7 +10,6 @@ import type { Category, TransactionType } from '@/lib/types'
 import { z } from 'zod'
 
 type TransactionFormInput = z.input<typeof transactionSchema>
-type TransactionFormData = z.output<typeof transactionSchema>
 
 interface TransactionFormProps {
   categories: Category[]

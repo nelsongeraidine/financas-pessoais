@@ -1,9 +1,12 @@
-// app/layout.tsx
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const hanken = Hanken_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-hanken',
+})
 
 export const metadata: Metadata = {
   title: 'Finanças Familiar',
@@ -13,7 +16,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>{children}</body>
+      <body className={`${hanken.variable} font-sans`}>{children}</body>
     </html>
   )
 }
