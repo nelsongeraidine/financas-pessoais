@@ -17,7 +17,13 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   if (!profile) redirect('/login')
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
+    <div
+      className="flex min-h-screen bg-space-deep"
+      style={{
+        backgroundImage:
+          'radial-gradient(ellipse 80% 50% at 50% -10%, rgba(50,100,255,0.15), transparent)',
+      }}
+    >
       <Sidebar profile={profile} />
       <main className="flex-1 p-6 overflow-auto">{children}</main>
     </div>
