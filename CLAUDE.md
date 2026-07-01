@@ -22,6 +22,8 @@ SUPABASE_SERVICE_ROLE_KEY=      # Server-only — never expose to client
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
+**Vercel deployment:** configure the same 4 variables in **Settings → Environment Variables**. Without them, `middleware.ts` crashes with `MIDDLEWARE_INVOCATION_FAILED` on every request. Set `NEXT_PUBLIC_SITE_URL` to the production URL (e.g. `https://financas-pessoais.vercel.app`).
+
 ## Architecture
 
 Next.js 14 App Router + Supabase (PostgreSQL + Auth). All UI text is in Brazilian Portuguese.
@@ -139,6 +141,12 @@ Font: **Hanken Grotesk** via `next/font/google`, CSS variable `--font-hanken`, a
 ### Logo
 
 `public/NGG-logo2.PNG` — served via `next/image` in `Sidebar.tsx` (width 120) and `app/(auth)/login/page.tsx` (width 140).
+
+**Always use `unoptimized` prop** on both Image components. The file is ~2MB and the Next.js image optimization API fails on Vercel's free plan for large assets:
+
+```tsx
+<Image src="/NGG-logo2.PNG" alt="NGG" width={140} height={70} priority unoptimized />
+```
 
 ### Icons
 
